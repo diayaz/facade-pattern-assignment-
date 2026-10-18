@@ -1,0 +1,16 @@
+digraph UML {
+  rankdir=TB; node [shape=record, fontname="Helvetica", fontsize=10]; edge [fontname="Helvetica", fontsize=9];
+  Main [label="{Main (Client)|+ main(args)}"];
+  Facade [label="{HomeTheaterFacade|- amp: Amplifier\l- dvd: DvdPlayer\l- projector: Projector\l- screen: Screen\l- lights: Lights\l- popper: PopcornPopper\l|+ watchMovie(movie: String)\l+ endMovie()\l- preparePopcorn()\l- prepareRoom()\l- prepareSound()\l}"];
+  subgraph cluster_s { label="Subsystem"; fontname="Helvetica"; style=dashed;
+    Amplifier [label="{Amplifier|+ on()\l+ setSource(dvd)\l+ setSurroundSound()\l+ setVolume(v)\l+ off()\l}"];
+    DvdPlayer [label="{DvdPlayer|+ on()\l+ play(movie)\l+ stop()\l+ eject()\l+ off()\l}"];
+    Projector [label="{Projector|+ on()\l+ wideScreenMode()\l+ off()\l}"];
+    Screen [label="{Screen|+ down()\l+ up()\l}"];
+    Lights [label="{Lights|+ dim(level)\l+ on()\l}"];
+    PopcornPopper [label="{PopcornPopper|+ on()\l+ pop()\l+ off()\l}"];
+  }
+  Main -> Facade [label="uses", arrowhead=vee];
+  edge [arrowhead=vee, arrowtail=diamond, dir=both];
+  Facade -> Amplifier; Facade -> DvdPlayer; Facade -> Projector; Facade -> Screen; Facade -> Lights; Facade -> PopcornPopper;
+}
